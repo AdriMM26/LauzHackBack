@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, json
-
+from hollistic import segmentation
 app = Flask(__name__)
 
 
@@ -18,10 +18,11 @@ def getImage():
         bodyParsed = json.loads(request.data)
         with open("imageToSave.png", "wb") as fh:
             fh.write(base64.urlsafe_b64decode(bodyParsed["image"]))
-            j_data = json.dump(fd.read())
-            print("Your image is loading")
-            r=requests.post()
-            return r
+            segmentation()
+            #j_data = json.dump(fd.read())
+            return("Your image is loading")
+            #r=requests.post()
+            #return r
 
 
 
