@@ -18,7 +18,11 @@ def getImage():
         bodyParsed = json.loads(request.data)
         with open("imageToSave.png", "wb") as fh:
             fh.write(base64.urlsafe_b64decode(bodyParsed["image"]))
-            return "Done"
+            j_data = json.dump(fd.read())
+            print("Your image is loading")
+            r=requests.post()
+            return r
+
 
 
 if __name__ == '__main__':
