@@ -33,7 +33,7 @@ def segmentation():
             enable_segmentation=True,
             refine_face_landmarks=True) as holistic:
         #for file in enumerate('./../flaskProject1'):
-            image = cv2.imread('./imageToSave.png')
+            image = cv2.imread('./images/imageToSave.png')
             image_height, image_width, _ = image.shape
             # Convert the BGR image to RGB before processing.
             results = holistic.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
@@ -64,7 +64,7 @@ def segmentation():
             thickness = 2
             cv2.rectangle(annotated_image, (x1, y1), (x2, y2), color, thickness)
             box_image = image[y1: y1 + (y2 - y1), x1: x1 + (x2 - x1)]
-            cv2.imwrite(f'./body.png', box_image)
+            cv2.imwrite(f'./images/body.png', box_image)
 
             # Trousers
             x1, y1 = (int(results.pose_landmarks.landmark[mp_holistic.PoseLandmark.RIGHT_HIP].x * image_width),
@@ -75,7 +75,7 @@ def segmentation():
             thickness = 2
             cv2.rectangle(annotated_image, (x1, y1), (x2, y2), color, thickness)
             box_image = image[y1: y1 + (y2 - y1), x1: x1 + (x2 - x1)]
-            cv2.imwrite(f'./trousers.png', box_image)
+            cv2.imwrite(f'./images/trousers.png', box_image)
 
             # Head
             x1, y1 = (int(results.pose_landmarks.landmark[mp_holistic.PoseLandmark.RIGHT_EYE_OUTER].x * image_width),
@@ -86,7 +86,7 @@ def segmentation():
             thickness = 2
             cv2.rectangle(annotated_image, (x1, y1), (x2, y2), color, thickness)
             box_image = image[y1: y1 + (y2 - y1), x1: x1 + (x2 - x1)]
-            cv2.imwrite(f'./head.png', box_image)
+            cv2.imwrite(f'./images/head.png', box_image)
 
             # Draw segmentation on the image.
             # To improve segmentation around boundaries, consider applying a joint
@@ -110,6 +110,6 @@ def segmentation():
                 landmark_drawing_spec=mp_drawing_styles.
                 get_default_pose_landmarks_style())
 
-            #cv2.imwrite('./' + str(file) + '.png', annotated_image)
+            #cv2.imwrite('./images/' + str(file) + '.png', annotated_image)
             # Plot pose world landmarks.
             mp_drawing.plot_landmarks(results.pose_world_landmarks, mp_holistic.POSE_CONNECTIONS)

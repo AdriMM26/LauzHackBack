@@ -23,12 +23,12 @@ def mapear(cloth):
 
 
 def send_to_model():
-    images_test = os.listdir('./*.png')
+    images_test = os.listdir('./images')
     img_size = 240
     images = []
     for image in images_test:
-        path = os.path.join('./', image)
-        if (path!='./imageToSave.png'):
+        path = os.path.join('./images', image)
+        if (path!='./images/imageToSave.png'):
             try:
                 img_arr = cv2.imread(path)
                 resized_arr = cv2.resize(img_arr, (img_size, img_size))  # Reshaping images to preferred size
@@ -47,10 +47,12 @@ def send_to_model():
 
     model = tf.keras.models.load_model('./model.h5')
 
+
     import matplotlib.pyplot as plt
 
     y_pred = model.predict(x_test)
 
+
     predictions = [np.argmax(prediction) for prediction in y_pred]
 
-    return (mapear(predictions[0]), mapear(predictions[1]), mapear(predictions[2]))
+    return [mapear(prediction) for prediction in predictions]

@@ -7,6 +7,7 @@ import os
 
 def score(piece, brand):
     grades = pd.read_csv('./notes.csv')
-    average = grades[(grades["Brand"] == brand)]
-    average = average[piece]
-    return (piece, brand, average)
+    average = grades.loc[(grades["Brand"] == brand)]
+
+    average = average[piece].values[0]
+    return average
